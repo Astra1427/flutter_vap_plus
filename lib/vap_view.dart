@@ -8,12 +8,14 @@ import 'package:flutter_vap_plus/vap_view_for_ios.dart';
 class VapView extends StatefulWidget {
   final void Function(VapController controller) onControllerCreated;
   final VapScaleFit fit;
+  final int? repeatCount;
   final void Function(dynamic event,dynamic arguments)? onEvent;
 
   const VapView({
     super.key,
     required this.onControllerCreated,
     this.fit = VapScaleFit.FIT_CENTER,
+    this.repeatCount,
     this.onEvent,
   });
 
@@ -30,6 +32,7 @@ class _VapViewState extends State<VapView> {
       return VapViewForAndroid(
         onControllerCreated: onControllerCreated,
         fit: widget.fit,
+        repeatCount: widget.repeatCount ?? 1,
         onEvent: widget.onEvent,
       );
     } else if (Platform.isIOS) {

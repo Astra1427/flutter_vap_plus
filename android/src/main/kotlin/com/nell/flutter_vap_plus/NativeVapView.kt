@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import com.tencent.qgame.animplayer.AnimConfig
 import com.tencent.qgame.animplayer.AnimView
+import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.inter.IAnimListener
 import com.tencent.qgame.animplayer.util.ScaleType
 import com.tencent.qgame.animplayer.inter.IFetchResource
@@ -45,6 +46,19 @@ internal class NativeVapView(
 
     override fun onFlutterViewAttached(flutterView: View) {
         super.onFlutterViewAttached(flutterView)
+
+        /// 循环播放
+        val repeatCount = creationParams?.get("repeatCount") as Int
+        if (repeatCount == -1) {
+            vapView.setLoop(Int.MAX_VALUE)
+        }
+        else {
+            vapView.setLoop(repeatCount)
+        }
+
+        vapView.enableVersion1(true)
+
+        vapView.setVideoMode(Constant.VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE)
 
         vapView.setScaleType(
             ScaleType.valueOf(
